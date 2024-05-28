@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:weather_ap/home.dart';
 import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:weather_ap/homepage/prsentation/homepage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'Sunflower'),
-      home: const HomePage(),
+      home: const Home(),
     );
   }
 }

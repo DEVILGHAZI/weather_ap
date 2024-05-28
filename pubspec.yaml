@@ -20,6 +20,10 @@ dependencies:
   intl: ^0.19.0
   shimmer: ^3.0.0
   mapbox_search: ^4.2.2
+  bloc: ^8.1.4
+  flutter_bloc: ^8.1.5
+  cached_network_image: ^3.3.1
+  popup_menu: ^2.0.0
 
 dev_dependencies:
   flutter_test:

@@ -10,13 +10,13 @@ class Future extends StatelessWidget {
     text: "",
     icon: Icons.sunny,
   );
-  BoxWidget1 box1 = const BoxWidget1(
-      initialData: 'washid',
-      title: 'current',
-      icon: Icons.sunny,
-      index: 0,
-      maximumvalue: 9,
-      isButtonActive: true);
+  // BoxWidget1 box1 = const BoxWidget1(
+  //     initialData: 'washid',
+  //     title: 'current',
+  //     icon: Icons.sunny,
+  //     index: 0,
+  //     maximumvalue: 9,
+  //     isButtonActive: true);
   Line line = const Line();
 
   Future({super.key});
@@ -64,7 +64,7 @@ class Future extends StatelessWidget {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [box1],
+                  // children: [box1],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

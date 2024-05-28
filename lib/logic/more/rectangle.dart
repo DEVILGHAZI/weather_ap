@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:weather_ap/homepage/bloc/model.dart';
+import 'package:weather_ap/homepage/prsentation/current/widget/air_quality.dart';
 import 'package:weather_ap/logic/more/slider.dart';
 import 'package:weather_ap/logic/more/airquality.dart';
 
@@ -9,6 +11,8 @@ class BoxWidget1 extends StatelessWidget {
   final double index;
   final double maximumvalue;
   final bool isButtonActive;
+  final Current currentData;
+  final LocationModel location;
 
   const BoxWidget1({
     super.key,
@@ -17,7 +21,8 @@ class BoxWidget1 extends StatelessWidget {
     required this.icon,
     required this.index,
     required this.maximumvalue,
-    required this.isButtonActive,
+    required this.isButtonActive, 
+    required this.currentData, required this.location,
   });
 
   @override
@@ -96,7 +101,7 @@ class BoxWidget1 extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const airquality(),
+                                builder: (context) =>  AirQualityView(currentData: currentData, location: location,),
                               ),
                             );
                           }
