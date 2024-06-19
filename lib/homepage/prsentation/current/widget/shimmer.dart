@@ -1,12 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:weather_ap/bottom.dart';
-import 'package:weather_ap/logic/widgets/menu_widgets.dart';
-import 'package:weather_ap/logic/widgets/search_widget.dart';
+import 'package:weather_ap/homepage/bloc/cubit.dart';
+import 'package:weather_ap/homepage/repo/repo.dart';
+import 'package:weather_ap/location/access_current.location.dart';
+import 'package:weather_ap/location/model.dart';
 
-class ShimmerEffectHome extends StatelessWidget {
-  const ShimmerEffectHome({super.key});
+class ShimmerEffectHome extends StatefulWidget {
+  final bool failed;
+  final bool loading;
+
+  const ShimmerEffectHome(
+      {super.key, required this.failed, required this.loading});
+
   @override
+  State<ShimmerEffectHome> createState() => _ShimmerEffectHomeState();
+}
+
+class _ShimmerEffectHomeState extends State<ShimmerEffectHome> {
+  late WeatherCubit _cubit;
+  late Future<LocationDetails> _locationDetails;
+
+  @override
+  void initState() {
+    super.initState();
+    _cubit = WeatherCubit(WeatherRepository()); // Initialize _cubit here
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
@@ -169,7 +188,14 @@ class ShimmerEffectHome extends StatelessWidget {
                           children: [
                             IconButton(
                               onPressed: () {
-                                ();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                        'Hold a Second We are Trying to fetch your Location'),
+                                    backgroundColor:
+                                        Color.fromARGB(74, 27, 27, 27),
+                                  ),
+                                );
                               },
                               icon: const Icon(
                                 Icons.search_sharp,
@@ -179,7 +205,16 @@ class ShimmerEffectHome extends StatelessWidget {
                             ),
                             FloatingActionButton(
                               backgroundColor: Colors.transparent,
-                              onPressed: () {},
+                              onPressed: () {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                        'Hold a Second We are Trying to fetch your Location'),
+                                    backgroundColor:
+                                        Color.fromARGB(74, 27, 27, 27),
+                                  ),
+                                );
+                              },
                               child: Container(
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
@@ -197,7 +232,16 @@ class ShimmerEffectHome extends StatelessWidget {
                               ),
                             ),
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                        'Hold a Second We are Trying to fetch your Location'),
+                                    backgroundColor:
+                                        Color.fromARGB(74, 27, 27, 27),
+                                  ),
+                                );
+                              },
                               icon: const Icon(
                                 Icons.menu,
                                 size: 30,
@@ -207,7 +251,123 @@ class ShimmerEffectHome extends StatelessWidget {
                           ],
                         ),
                       ),
-                    )
+                    ),
+                    if (widget.loading == false && widget.failed == true)
+                      Positioned(
+                        top: 200,
+                        left: 100,
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/cloud_failed.png',
+                              scale: 4,
+                            ),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            SizedBox(
+                                height: 40,
+                                width: 200,
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Color.fromARGB(255, 22, 25,
+                                                53)), // Dark blue background
+                                    foregroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.white), // White text color
+                                    shadowColor:
+                                        MaterialStateProperty.all<Color>(Colors
+                                            .transparent), // Transparent shadow
+                                    side: MaterialStateProperty.all(BorderSide(
+                                        color:
+                                            Colors.transparent)), // No border
+                                    shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                            50), // Rounded corners
+                                      ),
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    _locationDetails =
+                                        LocationService().getCurrentLocation();
+                                    _locationDetails.then((location) {
+                                      _cubit.fetchBothData(location.latitude,
+                                          location.longitude);
+                                    });
+                                  },
+                                  child: MouseRegion(
+                                    cursor: SystemMouseCursors.click,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(Icons.refresh),
+                                        SizedBox(
+                                            width:
+                                                8), // Space between icon and text
+                                        Text('Reload'),
+                                      ],
+                                    ),
+                                  ),
+                                )
+
+                                // ElevatedButton(
+
+                                //   style: ButtonStyle(backgroundColor:
+                                //       Color.fromARGB(255, 22, 25, 53),
+                                //     //  Color(0xFF2E335A),
+                                //     ),
+                                //   onPressed: () {
+                                //     _locationDetails =
+                                //         LocationService().getCurrentLocation();
+                                //     _locationDetails.then((location) {
+                                //       _cubit.fetchBothData(
+                                //           location.latitude, location.longitude);
+                                //     });
+                                //   },
+                                //   child: Row(
+                                //     mainAxisAlignment: MainAxisAlignment.center,
+                                //     children: [
+                                //       Icon(Icons.refresh),
+                                //       Text('Reload'),
+                                //     ],
+                                //   ),
+                                // ),
+                                ),
+                          ],
+                        ),
+                      ),
+                    if (widget.loading == true && widget.failed == false)
+                      Padding(
+                        padding: EdgeInsets.only(left: 90, top: 110),
+                        child: Container(
+                          height: 150,
+                          width: 200,
+                          child: const Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'We are Fetching ',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              Text(
+                                'Your Current Location',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                   ],
                 ),
               ),

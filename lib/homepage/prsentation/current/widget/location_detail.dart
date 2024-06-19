@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_ap/helper/color.dart';
+import 'package:weather_ap/homepage/bloc/cubit.dart';
 import 'package:weather_ap/homepage/bloc/model.dart';
+import 'package:weather_ap/homepage/prsentation/homepage.dart';
+import 'package:weather_ap/location/access_current.location.dart';
+import 'package:weather_ap/location/model.dart';
 
 class CustomDropdownButton extends StatefulWidget {
   final LocationModel location;
@@ -13,6 +18,14 @@ class CustomDropdownButton extends StatefulWidget {
 
 class _CustomDropdownButtonState extends State<CustomDropdownButton> {
   String? _selectedItem;
+  late WeatherCubit _cubit;
+  
+
+  @override
+  void initState() {
+    super.initState();
+    _cubit = BlocProvider.of<WeatherCubit>(context);
+  }
 
 
   @override
@@ -95,6 +108,20 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
                   ],
                 ),
               ),
+              DropdownMenuItem<String>(
+                onTap: _refreshData,
+                value: 'Refresh',
+                child: Row(
+                  children: [
+                    Icon(Icons.refresh, color: myGrey, size: 20),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text('Refresh',
+                        style: TextStyle(color: myGrey, fontSize: 15)),
+                  ],
+                ),
+              ),
             ],
             onChanged: (String? newValue) {
              
@@ -121,4 +148,11 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
       ],
     );
   }
+  late Future<LocationDetails> _locationDetails;
+  void _refreshData() {
+     _locationDetails = LocationService().getCurrentLocation();
+  _locationDetails.then((location) {
+      _cubit.fetchBothData(location.latitude, location.longitude);
+    });
+}
 }

@@ -67,7 +67,7 @@ class Hour extends StatelessWidget {
                           iconUrl: data['iconUrl'],
                           text: data['text'],
                           temp: data['temp'],
-                          feels: data['feels'],
+                          feels: data['feels'], isday: 0,
                         ),
                       ],
                     ),
@@ -92,7 +92,7 @@ class Hour extends StatelessWidget {
       Map<String, dynamic> data = {
         'day': DateFormat('EEE').format(forecastTime),
         'time': formattedTime,
-        'iconUrl': "https://cdn.weatherapi.com/weather/day/113.png",
+        'iconUrl':'https://cdn.weatherapi.com/weather/64x64/day/113.png',
         'text': "Sunny",
         'temp': "19°",
         'feels': "20°",

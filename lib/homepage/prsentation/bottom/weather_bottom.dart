@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:weather_ap/forecast.dart';
+import 'package:weather_ap/astro/astro_home.dart';
 import 'package:weather_ap/homepage/bloc/model.dart';
 import 'package:weather_ap/homepage/prsentation/current/current.dart';
-import 'package:weather_ap/today.dart';
-import 'package:weather_ap/astro.dart';
+import 'package:weather_ap/forecast/presentation/forecast_home.dart';
 import 'package:weather_ap/logic/livelocation.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -123,9 +122,10 @@ class _BottomState extends State<Bottom> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) =>
-                                        CurrentPage(currentData: widget.currentData, location: widget.location,)
-                                      ),
+                                          builder: (context) => CurrentPage(
+                                                currentData: widget.currentData,
+                                                location: widget.location,
+                                              )),
                                     );
                                   }
                                 : null,
@@ -139,7 +139,7 @@ class _BottomState extends State<Bottom> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => const Forecast(),
+                                        builder: (context) => ForecastHome(),
                                       ),
                                     );
                                   }
@@ -157,12 +157,13 @@ class _BottomState extends State<Bottom> {
                             isActive: isButton2Active,
                             onPressed: isButton2Active
                                 ? () {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //     builder: (context) => Astro(),
-                                    //   ),
-                                    // );
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => AstroHome(
+                                        ),
+                                      ),
+                                    );
                                   }
                                 : null,
                           ),

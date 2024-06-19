@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:weather_ap/homepage/bloc/model.dart';
 import 'package:weather_ap/homepage/prsentation/current/widget/air_quality.dart';
 import 'package:weather_ap/logic/more/slider.dart';
-import 'package:weather_ap/logic/more/airquality.dart';
 
 class BoxWidget1 extends StatelessWidget {
   final String initialData;

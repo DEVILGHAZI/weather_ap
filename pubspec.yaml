@@ -24,6 +24,7 @@ dependencies:
   flutter_bloc: ^8.1.5
   cached_network_image: ^3.3.1
   popup_menu: ^2.0.0
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
@@ -41,6 +42,9 @@ flutter:
     - assets/average_temp.png
     - assets/high_temp.png
     - assets/low_temp.png
+    - assets/load_failed.png
+    - assets/cloud_failed.png
+    - assets/logo.jpg
 fonts:
   - family: Sunflower
     fonts:

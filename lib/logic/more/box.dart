@@ -7,6 +7,7 @@ class BoxWidget3 extends StatelessWidget {
   final String feels;
   final String iconUrl;
   final String text;
+  final int isday;
 
   const BoxWidget3(
       {super.key,
@@ -15,7 +16,7 @@ class BoxWidget3 extends StatelessWidget {
       required this.temp,
       required this.feels,
       required this.iconUrl,
-      required this.text});
+      required this.text, required this.isday});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -92,11 +93,27 @@ class BoxWidget3 extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(width: 8),
-                  Text(
-                    text,
-                    style: const TextStyle(
-                        color: Color.fromRGBO(255, 255, 255, 0.671),
-                        fontSize: 18),
+                  Row(
+                    children: [
+                      Text(
+                        text,
+                        style: const TextStyle(
+                            color: Color.fromRGBO(255, 255, 255, 0.671),
+                            fontSize: 18),
+                      ),
+                       Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              isday==1 ? ' Day ' : 'Night ',
+                              style: const TextStyle(
+                                fontSize: 18,
+                                color:  Color.fromRGBO(255, 255, 255, 0.671),
+                              ),
+                            ),
+                          ],
+                        ),
+                    ],
                   ),
                 ],
               ),

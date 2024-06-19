@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:weather_ap/bottom.dart';
 import 'package:weather_ap/homepage/bloc/model.dart';
 import 'package:weather_ap/homepage/prsentation/bottom/weather_bottom.dart';
 import 'package:weather_ap/homepage/prsentation/current/widget/location_detail.dart';
@@ -8,6 +7,7 @@ import 'package:weather_ap/location/access_current.location.dart';
 import 'package:weather_ap/location/model.dart';
 import 'package:weather_ap/logic/widgets/menu_widgets.dart';
 import 'package:weather_ap/logic/widgets/search_widget.dart';
+import 'package:weather_ap/today_menu/today_menu.dart';
 
 class CurrentData extends StatefulWidget {
   final Current current;
@@ -19,7 +19,6 @@ class CurrentData extends StatefulWidget {
 }
 
 class _CurrentDataState extends State<CurrentData> {
-  bool isButton1Active = true;
   late LocationDetails _location;
   @override
   void initState() {

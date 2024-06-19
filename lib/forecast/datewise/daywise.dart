@@ -7,17 +7,17 @@ import 'package:weather_ap/logic/more/newmodel.dart';
 import 'package:weather_ap/logic/more/rectangle.dart';
 import '../../../logic/more/model.dart';
 
-class CurrentPage extends StatefulWidget {
+class DayPage extends StatefulWidget {
   final Current currentData;
   final LocationModel location;
-  const CurrentPage(
+  const DayPage(
       {super.key, required this.currentData, required this.location});
 
   @override
-  State<CurrentPage> createState() => _CurrentPageState();
+  State<DayPage> createState() => _DayPageState();
 }
 
-class _CurrentPageState extends State<CurrentPage> {
+class _DayPageState extends State<DayPage> {
   int usEpaIndex = 0;
   String airQuality = "";
   late BoxWidget1 airQualityBox;
@@ -72,6 +72,7 @@ class _CurrentPageState extends State<CurrentPage> {
       body: SingleChildScrollView(
         child: Container(
           width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
           clipBehavior: Clip.antiAlias,
           decoration: const BoxDecoration(
             gradient: LinearGradient(

@@ -60,7 +60,6 @@ class _AirQualityViewState extends State<AirQualityView> {
               [
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
                   clipBehavior: Clip.antiAlias,
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(

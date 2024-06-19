@@ -32,29 +32,40 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocListener<WeatherCubit, WeatherState>(
-        bloc: _cubit,
-        listener: (context, state) {
-          if (state is WeatherError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.message)),
-            );
-          }
-        },
-        child: BlocBuilder<WeatherCubit, WeatherState>(
+    return BlocProvider<WeatherCubit>(
+      create: (_) => _cubit,
+      child: Scaffold(
+        body: BlocListener<WeatherCubit, WeatherState>(
           bloc: _cubit,
-          builder: (context, state) {
-            if (state is WeatherLoading) {
-              return Center(child: ShimmerEffectHome());
-            } else if (state is CombinedWeatherAndLocationData ) {
-             Current weatherData = state.weatherData;
-             LocationModel location = state.locationData;
-              return CurrentData(current: weatherData, location: location,);
-            } else {
-              return Center(child: ShimmerEffectHome());
+          listener: (context, state) {
+            if (state is WeatherError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.message),
+                  backgroundColor: Colors.grey,
+                ),
+              );
             }
           },
+          child: BlocBuilder<WeatherCubit, WeatherState>(
+            bloc: _cubit,
+            builder: (context, state) {
+              if (state is WeatherLoading) {
+                return Center(child: ShimmerEffectHome(loading: true,failed: false,));
+              } else if (state is CombinedWeatherAndLocationData) {
+                Current weatherData = state.weatherData;
+                LocationModel location = state.locationData;
+                return CurrentData(
+                  current: weatherData,
+                  location: location,
+                );
+              } else if (state is WeatherError) {
+                return  ShimmerEffectHome(loading: false,failed:true);
+              } else {
+                return Center(child: ShimmerEffectHome(loading: false,failed:false));
+              }
+            },
+          ),
         ),
       ),
     );
