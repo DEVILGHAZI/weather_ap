@@ -1,4 +1,4 @@
-Hello I'm Mohd Washid, I devlope- 
+Hello I'm Mohd Washid, I develope- 
 
 
 ☁️ Weather Ap - Your Personal Weather Companion
